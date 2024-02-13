@@ -20,7 +20,22 @@ public class Movement : MonoBehaviour
 
     public DirectionState GetDirectionState => _directionState;
 
-    private bool IsGrounded => Physics2D.BoxCast(_boxCollider2D.bounds.center, _boxCollider2D.bounds.size, 0f, Vector2.down, .1f, _groundMask);
+    private bool IsGrounded => Physics2D.BoxCast(_boxCollider2D.bounds.center,
+        _boxCollider2D.bounds.size, 0f, Vector2.down, .1f, _groundMask);
+
+    private void Start()
+    {
+        _boxCollider2D = GetComponent<BoxCollider2D>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D.freezeRotation = true;
+        _lastPosition = transform.position;
+    }
+
+    private void Update()
+    {
+        ResetIsJumpedState();
+        RefreshMoveState();
+    }
 
     public void Move(Vector2 direction)
     {
@@ -42,20 +57,6 @@ public class Movement : MonoBehaviour
             _moveState = MoveState.Jump;
             _isJumped = true;
         }
-    }
-
-    private void Start()
-    {
-        _boxCollider2D = GetComponent<BoxCollider2D>();
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        _rigidbody2D.freezeRotation = true;
-        _lastPosition = transform.position;
-    }
-
-    private void Update()
-    {
-        ResetIsJumpedState();
-        RefreshMoveState();
     }
 
     private void ResetIsJumpedState()

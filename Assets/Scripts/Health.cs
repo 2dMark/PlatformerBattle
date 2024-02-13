@@ -15,7 +15,6 @@ public class Health : MonoBehaviour
 
         if (_healthAmount != null)
             _healthAmount.text = $"{_health}/{_maxHealth}";
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class PlayerFinder : MonoBehaviour
 {
-    private const string PlayerTag = "Player";
-
     [SerializeField, Min(0)] private float _viewingRange;
 
     public event Action PlayerFindgding;
@@ -34,18 +32,18 @@ public class PlayerFinder : MonoBehaviour
             else
                 _raycastHit2D = Physics2D.RaycastAll(transform.position, Vector3.left, _viewingRange);
 
-            if (_raycastHit2D != null)
+            if (_raycastHit2D == null)
+                return;
+
+            foreach (RaycastHit2D cast in _raycastHit2D)
             {
-                foreach (RaycastHit2D cast in _raycastHit2D)
+                if (cast.collider.GetComponent<KeyboardInput>())
                 {
-                    if (cast.collider.CompareTag(PlayerTag))
-                    {
-                        _playerTransform = cast.collider.transform;
+                    _playerTransform = cast.collider.transform;
 
-                        PlayerFindgding?.Invoke();
+                    PlayerFindgding?.Invoke();
 
-                        _wayPointPatrol.enabled = false;
-                    }
+                    _wayPointPatrol.enabled = false;
                 }
             }
         }

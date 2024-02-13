@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class CoinsCollector : MonoBehaviour
 {
-    private const string CollectionTag = "Coin";
-
     [SerializeField] private TMP_Text _coinsAmont;
 
     private int _collectedCoins = 0;
@@ -19,7 +17,7 @@ public class CoinsCollector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(CollectionTag))
+        if (collision.GetComponent<Coin>())
         {
             Destroy(collision.gameObject);
 
