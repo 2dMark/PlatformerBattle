@@ -15,7 +15,7 @@ public class PlayerFinder : MonoBehaviour
     private RaycastHit2D[] _raycastHit2D;
     private Transform _playerTransform;
 
-    public Transform GetPlayerTransform => _playerTransform;
+    public Transform PlayerTransform => _playerTransform;
 
     private void Start()
     {
@@ -27,7 +27,7 @@ public class PlayerFinder : MonoBehaviour
     {
         if (_playerTransform == null)
         {
-            if (_movement.GetDirectionState == Movement.DirectionState.Right)
+            if (_movement.DirectionState == Movement.DirectionStates.Right)
                 _raycastHit2D = Physics2D.RaycastAll(transform.position, Vector2.right, _viewingRange);
             else
                 _raycastHit2D = Physics2D.RaycastAll(transform.position, Vector3.left, _viewingRange);

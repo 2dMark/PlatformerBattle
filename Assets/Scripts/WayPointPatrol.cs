@@ -10,7 +10,7 @@ public class WayPointPatrol : MonoBehaviour
     private int _wayPointIndex;
     private Movement _movement;
 
-    private Vector2 GetWayPointDirection => (_wayPoints[_wayPointIndex].position - transform.position).normalized;
+    private Vector2 WayPointDirection => (_wayPoints[_wayPointIndex].position - transform.position).normalized;
 
     private void Start()
     {
@@ -22,7 +22,7 @@ public class WayPointPatrol : MonoBehaviour
     private void Update()
     {   
         if (_wayPoints != null)
-            _movement.Move(GetWayPointDirection);
+            _movement.Move(WayPointDirection);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -8,7 +8,7 @@ public class KeyboardInput : MonoBehaviour
 
     private Movement _movement;
 
-    private Vector2 GetHorizontalDirection => new(Input.GetAxisRaw(Horizontal), 0);
+    private Vector2 HorizontalDirection => new(Input.GetAxisRaw(Horizontal), 0);
 
     private void Start()
     {
@@ -18,7 +18,7 @@ public class KeyboardInput : MonoBehaviour
     private void Update()
     {
         if (Input.GetAxisRaw(Horizontal) != 0)
-            _movement.Move(GetHorizontalDirection);
+            _movement.Move(HorizontalDirection);
 
         if (Input.GetKeyDown(KeyCode.Space))
             _movement.Jump();

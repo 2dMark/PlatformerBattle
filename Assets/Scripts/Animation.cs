@@ -27,15 +27,15 @@ public class Animation : MonoBehaviour
 
     private void RefreshMoveState()
     {
-        if (_movement.GetMoveState != (Movement.MoveState)_animator.GetInteger(AnimatorState))
-            _animator.SetInteger(AnimatorState, (int)_movement.GetMoveState);
+        if (_movement.MoveState != (Movement.MoveStates)_animator.GetInteger(AnimatorState))
+            _animator.SetInteger(AnimatorState, (int)_movement.MoveState);
     }
 
     private void RefreshDirectionState()
     {
-        if (_movement.GetDirectionState == Movement.DirectionState.Right && _spriteRenderer.flipX == true)
+        if (_movement.DirectionState == Movement.DirectionStates.Right)
             _spriteRenderer.flipX = false;
-        else if (_movement.GetDirectionState == Movement.DirectionState.Left && _spriteRenderer.flipX == false)
+        else if (_movement.DirectionState == Movement.DirectionStates.Left)
             _spriteRenderer.flipX = true;
     }
 }

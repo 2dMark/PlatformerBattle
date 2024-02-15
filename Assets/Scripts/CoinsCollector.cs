@@ -7,7 +7,7 @@ public class CoinsCollector : MonoBehaviour
 
     private int _collectedCoins = 0;
 
-    public int GetCollectedCoins => _collectedCoins;
+    public int CollectedCoins => _collectedCoins;
 
     private void Start()
     {

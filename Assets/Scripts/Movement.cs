@@ -11,14 +11,14 @@ public class Movement : MonoBehaviour
 
     private BoxCollider2D _boxCollider2D;
     private Rigidbody2D _rigidbody2D;
-    private MoveState _moveState = MoveState.Idle;
-    private DirectionState _directionState = DirectionState.Right;
+    private MoveStates _moveState = MoveStates.Idle;
+    private DirectionStates _directionState = DirectionStates.Right;
     private bool _isJumped = false;
     private Vector3 _lastPosition;
 
-    public MoveState GetMoveState => _moveState;
+    public MoveStates MoveState => _moveState;
 
-    public DirectionState GetDirectionState => _directionState;
+    public DirectionStates DirectionState => _directionState;
 
     private bool IsGrounded => Physics2D.BoxCast(_boxCollider2D.bounds.center,
         _boxCollider2D.bounds.size, 0f, Vector2.down, .1f, _groundMask);
@@ -41,10 +41,10 @@ public class Movement : MonoBehaviour
     {
         direction = GetNormalizedHorizontalVector(direction);
 
-        if (direction.x > 0 && _directionState != DirectionState.Right)
-            _directionState = DirectionState.Right;
-        else if (direction.x < 0 && _directionState != DirectionState.Left)
-            _directionState = DirectionState.Left;
+        if (direction.x > 0 && _directionState != DirectionStates.Right)
+            _directionState = DirectionStates.Right;
+        else if (direction.x < 0 && _directionState != DirectionStates.Left)
+            _directionState = DirectionStates.Left;
 
         transform.Translate(_speed * Time.deltaTime * direction);
     }
@@ -54,7 +54,7 @@ public class Movement : MonoBehaviour
         if (IsGrounded && _rigidbody2D.velocity.y == 0)
         {
             _rigidbody2D.velocity = Vector2.up * _jumpForce;
-            _moveState = MoveState.Jump;
+            _moveState = MoveStates.Jump;
             _isJumped = true;
         }
     }
@@ -69,14 +69,14 @@ public class Movement : MonoBehaviour
     {
         if (IsGrounded && _rigidbody2D.velocity == Vector2.zero)
         {
-            if (_lastPosition.x == transform.position.x && _moveState != MoveState.Idle)
-                _moveState = MoveState.Idle;
-            else if (_lastPosition.x != transform.position.x && _moveState != MoveState.Run)
-                _moveState = MoveState.Run;
+            if (_lastPosition.x == transform.position.x && _moveState != MoveStates.Idle)
+                _moveState = MoveStates.Idle;
+            else if (_lastPosition.x != transform.position.x && _moveState != MoveStates.Run)
+                _moveState = MoveStates.Run;
         }
-        else if (_isJumped == false && _moveState != MoveState.Fall)
+        else if (_isJumped == false && _moveState != MoveStates.Fall)
         {
-            _moveState = MoveState.Fall;
+            _moveState = MoveStates.Fall;
         }
 
         _lastPosition = transform.position;
@@ -95,7 +95,7 @@ public class Movement : MonoBehaviour
         return direction;
     }
 
-    public enum MoveState
+    public enum MoveStates
     {
         Idle,
         Run,
@@ -103,7 +103,7 @@ public class Movement : MonoBehaviour
         Fall,
     }
 
-    public enum DirectionState
+    public enum DirectionStates
     {
         Left,
         Right,

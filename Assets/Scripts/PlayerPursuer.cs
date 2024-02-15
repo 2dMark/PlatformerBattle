@@ -9,7 +9,7 @@ public class PlayerPursuer : MonoBehaviour
     private PlayerFinder _playerFinder;
     private Transform _playerTransform;
 
-    private Vector2 GetPlayerDirection => (_playerTransform.position - transform.position).normalized;
+    private Vector2 PlayerDirection => (_playerTransform.position - transform.position).normalized;
 
     private void Start()
     {
@@ -21,7 +21,7 @@ public class PlayerPursuer : MonoBehaviour
     private void Update()
     {
         if (_playerTransform != null)
-            _movement.Move(GetPlayerDirection);
+            _movement.Move(PlayerDirection);
     }
 
     private void OnDisable()
@@ -29,5 +29,5 @@ public class PlayerPursuer : MonoBehaviour
         _playerFinder.PlayerFindgding -= SetPlayerTransformFromPlayerFinder;
     }
 
-    private void SetPlayerTransformFromPlayerFinder() => _playerTransform = _playerFinder.GetPlayerTransform;
+    private void SetPlayerTransformFromPlayerFinder() => _playerTransform = _playerFinder.PlayerTransform;
 }
