@@ -1,19 +1,13 @@
-using TMPro;
+using System;
 using UnityEngine;
 
 public class CoinsCollector : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _coinsAmont;
+    public event Action AmountChanged;
 
     private int _collectedCoins = 0;
 
     public int CollectedCoins => _collectedCoins;
-
-    private void Start()
-    {
-        if (_coinsAmont != null)
-            _coinsAmont.text = $"Coins: {_collectedCoins}";
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,8 +17,7 @@ public class CoinsCollector : MonoBehaviour
 
             _collectedCoins++;
 
-            if (_coinsAmont != null)
-                _coinsAmont.text = $"Coins: {_collectedCoins}";
+            AmountChanged?.Invoke();
         }
     }
 }

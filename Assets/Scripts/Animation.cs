@@ -35,7 +35,7 @@ public class Animation : MonoBehaviour
     {
         if (_movement.DirectionState == Movement.DirectionStates.Right)
             _spriteRenderer.flipX = false;
-        else if (_movement.DirectionState == Movement.DirectionStates.Left)
+        else
             _spriteRenderer.flipX = true;
     }
 }

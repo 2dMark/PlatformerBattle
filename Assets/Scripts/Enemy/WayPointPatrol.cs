@@ -1,14 +1,15 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Movement))]
+[RequireComponent(typeof(Enemy))]
 
 public class WayPointPatrol : MonoBehaviour
 {
     [SerializeField] private Transform _path;
 
+    private Movement _movement;
     private Transform[] _wayPoints;
     private int _wayPointIndex;
-    private Movement _movement;
 
     private Vector2 WayPointDirection => (_wayPoints[_wayPointIndex].position - transform.position).normalized;
 

@@ -5,16 +5,22 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField, Min(0)] private float _speed;
-    [SerializeField, Min(0)] private float _jumpForce;
+    [SerializeField, Min(0)] private float _speed = 2f;
+    [SerializeField, Min(0)] private float _jumpForce = 5.5f;
+    [SerializeField, Min(0)] private float _attackSpeed = 1f;
+    [SerializeField, Min(0)] private float _attackRange = 0.2f;
+    [SerializeField, Min(0)] private int _attackDamage = 1;
     [SerializeField] private LayerMask _groundMask;
 
     private BoxCollider2D _boxCollider2D;
     private Rigidbody2D _rigidbody2D;
     private MoveStates _moveState = MoveStates.Idle;
     private DirectionStates _directionState = DirectionStates.Right;
-    private bool _isJumped = false;
     private Vector3 _lastPosition;
+    private bool _isJumped = false;
+    private float _attackTime = 0;
+
+    public float AttackRange => _attackRange;
 
     public MoveStates MoveState => _moveState;
 
@@ -33,8 +39,9 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        ResetIsJumpedState();
         RefreshMoveState();
+        ResetIsJumpedState();
+        RefreshAttackTime();
     }
 
     public void Move(Vector2 direction)
@@ -59,10 +66,26 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void ResetIsJumpedState()
+    public void Attack()
     {
-        if (_isJumped == true && _rigidbody2D.velocity.y < 0)
-            _isJumped = false;
+        if (_attackTime > 0)
+            return;
+
+        RaycastHit2D[] _raycastHit2D;
+
+        _moveState = MoveStates.Attack;
+        _attackTime = _attackSpeed;
+
+        if (_directionState == DirectionStates.Right)
+            _raycastHit2D = Physics2D.BoxCastAll(_boxCollider2D.bounds.center,
+        _boxCollider2D.bounds.size, 0f, Vector2.right, _attackRange);
+        else
+            _raycastHit2D = Physics2D.BoxCastAll(_boxCollider2D.bounds.center,
+        _boxCollider2D.bounds.size, 0f, Vector2.left, _attackRange);
+
+        foreach (RaycastHit2D cast in _raycastHit2D)
+            if (cast.collider.TryGetComponent(out Health health))
+                health.TakeDamage(_attackDamage);
     }
 
     private void RefreshMoveState()
@@ -80,6 +103,18 @@ public class Movement : MonoBehaviour
         }
 
         _lastPosition = transform.position;
+    }
+
+    private void ResetIsJumpedState()
+    {
+        if (_isJumped == true && _rigidbody2D.velocity.y < 0)
+            _isJumped = false;
+    }
+
+    private void RefreshAttackTime()
+    {
+        if (_attackTime > 0)
+            _attackTime -= Time.deltaTime;
     }
 
     private Vector2 GetNormalizedHorizontalVector(Vector2 direction)
@@ -101,6 +136,7 @@ public class Movement : MonoBehaviour
         Run,
         Jump,
         Fall,
+        Attack,
     }
 
     public enum DirectionStates
