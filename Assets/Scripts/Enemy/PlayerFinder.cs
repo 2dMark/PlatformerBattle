@@ -19,7 +19,7 @@ public class PlayerFinder : MonoBehaviour
 
     public Transform PlayerTransform => _playerTransform;
 
-    private void Start()
+    private void Awake()
     {
         _boxCollider2D = GetComponent<BoxCollider2D>();
         _movement = GetComponent<Movement>();
@@ -41,6 +41,7 @@ public class PlayerFinder : MonoBehaviour
                 return;
 
             foreach (RaycastHit2D cast in _raycastHit2D)
+            {
                 if (cast.collider.GetComponent<Player>())
                 {
                     _playerTransform = cast.collider.transform;
@@ -49,6 +50,7 @@ public class PlayerFinder : MonoBehaviour
 
                     _wayPointPatrol.enabled = false;
                 }
+            }
         }
     }
 }

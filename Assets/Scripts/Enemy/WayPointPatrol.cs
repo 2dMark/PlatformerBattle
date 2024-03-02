@@ -13,7 +13,7 @@ public class WayPointPatrol : MonoBehaviour
 
     private Vector2 WayPointDirection => (_wayPoints[_wayPointIndex].position - transform.position).normalized;
 
-    private void Start()
+    private void Awake()
     {
         _movement = GetComponent<Movement>();
 

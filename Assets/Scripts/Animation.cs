@@ -12,7 +12,7 @@ public class Animation : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private Movement _movement;
 
-    private void Start()
+    private void Awake()
     {
         _animator = gameObject.GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();

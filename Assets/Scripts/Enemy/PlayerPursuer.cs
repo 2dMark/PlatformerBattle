@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -14,13 +15,21 @@ public class PlayerPursuer : MonoBehaviour
 
     private Vector2 PlayerDirection => (_playerTransform.position - transform.position).normalized;
 
-    private void Start()
+    private void Awake()
     {
         _boxCollider2D = GetComponent<BoxCollider2D>();
         _movement = GetComponent<Movement>();
         _playerFinder = GetComponent<PlayerFinder>();
+    }
 
+    private void OnEnable()
+    {
         _playerFinder.PlayerFindgding += SetPlayerTransformFromPlayerFinder;
+    }
+
+    private void OnDisable()
+    {
+        _playerFinder.PlayerFindgding -= SetPlayerTransformFromPlayerFinder;
     }
 
     private void Update()
@@ -36,11 +45,6 @@ public class PlayerPursuer : MonoBehaviour
                 if (cast.collider.GetComponent<Player>())
                     _movement.Attack();
         }
-    }
-
-    private void OnDisable()
-    {
-        _playerFinder.PlayerFindgding -= SetPlayerTransformFromPlayerFinder;
     }
 
     private void SetPlayerTransformFromPlayerFinder() => _playerTransform = _playerFinder.PlayerTransform;

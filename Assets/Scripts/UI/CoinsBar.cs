@@ -4,13 +4,10 @@ using UnityEngine;
 public class CoinsBar : MonoBehaviour
 {
     [SerializeField] private TMP_Text _coinsAmount;
-    [SerializeField] private GameObject _player;
-
-    private CoinsCollector _coinsCollector;
+    [SerializeField] private CoinsCollector _coinsCollector;
 
     private void Start()
     {
-        _coinsCollector = _player.GetComponent<CoinsCollector>();
         _coinsCollector.AmountChanged += RefreshCoinsBar;
 
         RefreshCoinsBar();

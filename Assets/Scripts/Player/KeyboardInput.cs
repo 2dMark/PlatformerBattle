@@ -10,7 +10,7 @@ public class KeyboardInput : MonoBehaviour
 
     private Vector2 HorizontalDirection => new(Input.GetAxisRaw(Horizontal), 0);
 
-    private void Start()
+    private void Awake()
     {
         _movement = GetComponent<Movement>();
     }

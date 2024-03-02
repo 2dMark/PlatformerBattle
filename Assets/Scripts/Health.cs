@@ -3,35 +3,41 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField, Min(1)] private int _amount;
-    [SerializeField, Min(1)] private int _maxAmount;
+    [SerializeField, Min(0)] private float _amount;
+    [SerializeField, Min(1)] private float _maxAmount;
 
     public event Action AmountChanged;
+    public event Action Died;
+
+    public float Amount
+    {
+        get => _amount;
+
+        private set
+        {
+            if (value == _amount || IsAlive == false)
+                return;
+
+            _amount = Mathf.Clamp(value, 0, _maxAmount);
+
+            if (_amount == 0)
+                Died?.Invoke();
+
+            AmountChanged?.Invoke();
+        }
+    }
+
+    public float MaxAmount => _maxAmount;
+
+    public bool IsAlive => _amount > 0;
 
     private void OnValidate()
     {
-        if (_maxAmount < _amount)
-            _amount = _maxAmount;
+        _amount = Mathf.Clamp(Mathf.Round(_amount), 1, _maxAmount);
+        _maxAmount = Mathf.Round(_maxAmount);
     }
 
-    public int HealthAmount => _amount;
+    public void Heal(float value) => Amount += Mathf.Round(value);
 
-    public int MaxHealthAmount => _maxAmount;
-
-    public void Heal(int number)
-    {
-        _amount += number;
-
-        if (_amount > _maxAmount)
-            _amount = _maxAmount;
-
-        AmountChanged?.Invoke();
-    }
-
-    public void TakeDamage(int amount)
-    {
-        _amount -= amount;
-
-        AmountChanged?.Invoke();
-    }
+    public void TakeDamage(float value) => Amount -= Mathf.Round(value);
 }
