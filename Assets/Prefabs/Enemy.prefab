@@ -14,12 +14,12 @@ GameObject:
   - component: {fileID: 2309571323367564686}
   - component: {fileID: 2309571323367564687}
   - component: {fileID: 2309571323367564684}
-  - component: {fileID: 2309571323367564685}
+  - component: {fileID: 6126752124655367468}
   - component: {fileID: 2309571323367564683}
   - component: {fileID: 2309571323367564680}
+  - component: {fileID: 2309571323367564685}
   - component: {fileID: 2309571323367564681}
   - component: {fileID: 2309571323367564678}
-  - component: {fileID: 6126752124655367468}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -185,7 +185,7 @@ MonoBehaviour:
   _attackableMask:
     serializedVersion: 2
     m_Bits: 128
---- !u!114 &2309571323367564685
+--- !u!114 &6126752124655367468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,9 +194,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2309571323367564679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f0e08909678e743a7b613525f00c7c, type: 3}
+  m_Script: {fileID: 11500000, guid: f8cc76ef4f4f40e47a36923beab1f86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _amount: 5
+  _maxAmount: 5
 --- !u!114 &2309571323367564683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +225,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewingRange: 2
+--- !u!114 &2309571323367564685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2309571323367564679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f0e08909678e743a7b613525f00c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2309571323367564681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,20 +261,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd708d2e7edad2f4a8826b268742587d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6126752124655367468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2309571323367564679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8cc76ef4f4f40e47a36923beab1f86b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _amount: 5
-  _maxAmount: 5
 --- !u!1 &7539990493645351953
 GameObject:
   m_ObjectHideFlags: 0

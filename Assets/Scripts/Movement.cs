@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     [SerializeField, Min(0)] private float _attackSpeed = 1f;
     [SerializeField, Min(0)] private float _attackRange = 0.2f;
     [SerializeField, Min(0)] private int _attackDamage = 1;
+    [SerializeField] private Ability _ability;
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private LayerMask _attackableMask;
 
@@ -26,6 +27,8 @@ public class Movement : MonoBehaviour
     private float _attackStateTime = 0;
     private float _changeActiveStateDelay = 1f;
     private float _changeActiveStateTime = 0;
+
+    public LayerMask AttackableMask => _attackableMask;
 
     public float AttackRange => _attackRange;
 
@@ -119,6 +122,8 @@ public class Movement : MonoBehaviour
             if (cast.collider.TryGetComponent(out Health health))
                 health.TakeDamage(_attackDamage);
     }
+
+    public void UseAbility() => _ability?.Use();
 
     private void RefreshMoveState()
     {

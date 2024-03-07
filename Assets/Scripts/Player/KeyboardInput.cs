@@ -25,5 +25,8 @@ public class KeyboardInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
             _movement.Attack();
+
+        if (Input.GetKeyDown(KeyCode.Q))
+            _movement.UseAbility();
     }
 }
